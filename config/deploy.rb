@@ -5,12 +5,10 @@ role :app, ""
 
 set :use_sudo, false
 set :application, "my_app"
-#set :repository, "."
+set :repo_url, "git@github.com:monteirobrena/my_app.git"
 set :deploy_to, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy"
 set :deploy_via, :copy
 
-#set :bundle_without, [:development, :test]
- 
 
 # override deploy:restart since this isn't a Rails app
 namespace :deploy do
