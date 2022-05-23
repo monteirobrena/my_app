@@ -1,21 +1,43 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.0"
 
-role :app, ""
+#role :app, ""
+
+set :user, "ubuntu"
 
 set :use_sudo, false
 set :application, "my_app"
 set :repo_url, "git@github.com:monteirobrena/my_app.git"
-set :deploy_to, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy"
-set :deploy_via, :copy
 
+#set :deploy_to, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy"
+#set :deploy_via, :copy
+#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
+#set :rvm_ruby_verrion, "ruby-3.0.0"
+#set :rvm_type, :user
+#set :user, "monteirobrena"
+#set :deploy_to, "/home/admin/"
 
 # override deploy:restart since this isn't a Rails app
 namespace :deploy do
+
+  namespace :check do
+#    after :make_linked_dirs, :bundle_install
+  end
+
+  desc "Bundle and Yarn install."
+  task :bundle_install do
+    on roles(:app) do
+      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && gem install bundler"
+      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && bundle install"
+      execute "yarn install --check-files"
+    end
+  end
+
   task :restart do
     # no-op
   end
 end
+
 
 #set :copy_dir, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/tmp"
 #set :copy_remote_dir, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/tmp"
