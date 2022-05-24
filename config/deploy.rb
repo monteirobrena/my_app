@@ -8,27 +8,31 @@ set :user, "ubuntu"
 set :use_sudo, false
 set :application, "my_app"
 set :repo_url, "git@github.com:monteirobrena/my_app.git"
+set :default_env, { rvm_bin_path: "~/.rvm/bin" }
+set :rvm_ruby_version, "ruby-2.6.3"
 
 #set :deploy_to, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy"
 #set :deploy_via, :copy
-#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
-#set :rvm_ruby_verrion, "ruby-3.0.0"
 #set :rvm_type, :user
 #set :user, "monteirobrena"
 #set :deploy_to, "/home/admin/"
 
+#namespace :bundler do
+#  namespace :install do
+#    gem install bundler
+#  end
+#end
 # override deploy:restart since this isn't a Rails app
 namespace :deploy do
 
-  namespace :check do
-#    after :make_linked_dirs, :bundle_install
-  end
+#  after :linked_dirs, :bundle_install
 
   desc "Bundle and Yarn install."
   task :bundle_install do
     on roles(:app) do
-      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && gem install bundler"
-      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && bundle install"
+#      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && gem install bundler"
+#      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && bundle install"
+      execute gem install bundler
       execute "yarn install --check-files"
     end
   end
