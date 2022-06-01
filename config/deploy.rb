@@ -1,11 +1,6 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.0"
 
-#role :app, ""
-
-#set :user, "ubuntu"
-
-#set :use_sudo, false
 set :application, "my_app"
 set :repo_url, "git@github.com:monteirobrena/my_app.git"
 set :default_env, { rvm_bin_path: "/usr/local/rvm/bin/rvm" }
@@ -14,8 +9,6 @@ set :rvm_ruby_version, "ruby-2.6.3"
 set :appsignal_config, name: 'My app'
 set :appsignal_env, :production
 
-#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
-#set :bundle_gemfile,  "my_app/Gemfile"
 
 #SSHKit.config.command_map[:rake] = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} && cd #{release_path}/ do bundle exec rake"
 
