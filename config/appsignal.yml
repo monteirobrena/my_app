@@ -37,6 +37,5 @@ development:
 
 production:
   <<: *defaults
-  push_api_key: "<%= ENV['APPSIGNAL_PUSH_API_KEY'] %>"
   active: true
-  revision: "f068773ce35a2f7dc61b39c81218470598746783"
+  revision: "<%= `git log --pretty=format:'%h' -n 1` %>"

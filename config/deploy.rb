@@ -13,7 +13,6 @@ set :rvm_ruby_version, "ruby-2.6.3"
 
 set :appsignal_config, name: 'My app'
 set :appsignal_env, :production
-set :appsignal_revision, `git log --pretty=format:'%h' -n 1`
 
 #set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 #set :bundle_gemfile,  "my_app/Gemfile"
