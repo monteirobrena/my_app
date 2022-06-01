@@ -9,8 +9,13 @@ lock "~> 3.17.0"
 set :application, "my_app"
 set :repo_url, "git@github.com:monteirobrena/my_app.git"
 set :default_env, { rvm_bin_path: "/usr/local/rvm/bin/rvm" }
-#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 set :rvm_ruby_version, "ruby-2.6.3"
+
+set :appsignal_config, name: 'My app'
+set :appsignal_env, :production
+set :appsignal_revision, `git log --pretty=format:'%h' -n 1`
+
+#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 #set :bundle_gemfile,  "my_app/Gemfile"
 
 #SSHKit.config.command_map[:rake] = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} && cd #{release_path}/ do bundle exec rake"
