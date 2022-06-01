@@ -58,6 +58,8 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
+    appsignal (3.0.27)
+      rack
     bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootsnap (1.11.1)
@@ -214,6 +216,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  appsignal
   bcrypt_pbkdf
   bootsnap (>= 1.4.2)
   byebug

@@ -3,44 +3,35 @@ lock "~> 3.17.0"
 
 #role :app, ""
 
-set :user, "ubuntu"
+#set :user, "ubuntu"
 
-set :use_sudo, false
+#set :use_sudo, false
 set :application, "my_app"
 set :repo_url, "git@github.com:monteirobrena/my_app.git"
-set :default_env, { rvm_bin_path: "~/.rvm/bin" }
+set :default_env, { rvm_bin_path: "/usr/local/rvm/bin/rvm" }
+#set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 set :rvm_ruby_version, "ruby-2.6.3"
+#set :bundle_gemfile,  "my_app/Gemfile"
+
+#SSHKit.config.command_map[:rake] = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} && cd #{release_path}/ do bundle exec rake"
+
+
+# Assets
+#set :assets_roles, [:web, :app]
+#set :assets_prefix, 'prepackaged-assets'
+#set :assets_manifests, ['app/assets/config/manifest.js']
+#set :rails_assets_groups, :assets
+#set :normalize_asset_timestamps, %w{public/images public/javascripts public/stylesheets}
+#set :keep_assets, 2
+
+#append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
+
 
 #set :deploy_to, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy"
 #set :deploy_via, :copy
 #set :rvm_type, :user
 #set :user, "monteirobrena"
 #set :deploy_to, "/home/admin/"
-
-#namespace :bundler do
-#  namespace :install do
-#    gem install bundler
-#  end
-#end
-# override deploy:restart since this isn't a Rails app
-namespace :deploy do
-
-#  after :linked_dirs, :bundle_install
-
-  desc "Bundle and Yarn install."
-  task :bundle_install do
-    on roles(:app) do
-#      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && gem install bundler"
-#      execute "cd /Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/current && bundle install"
-      execute gem install bundler
-      execute "yarn install --check-files"
-    end
-  end
-
-  task :restart do
-    # no-op
-  end
-end
 
 
 #set :copy_dir, "/Users/monteirobrena/Documents/Brena/Posts/AppSignal/Projects/deploy/tmp"
@@ -81,3 +72,16 @@ end
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  desc "Run seed"
+  task :seed do
+    on roles(:all) do
+      within current_path do
+        execute :bundle, :exec, 'rails', 'db:seed', 'RAILS_ENV=production'
+      end
+    end
+  end
+
+  after :migrating, :seed
+end
