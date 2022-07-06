@@ -40,3 +40,6 @@ production:
   active: true
   revision: "<%= `git log --pretty=format:'%h' -n 1` %>"
   log_level: error
+  ignore_errors: 
+    - NoMethodError
+
